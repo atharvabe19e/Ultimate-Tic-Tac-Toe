@@ -1,6 +1,6 @@
 import { Image, TouchableOpacity, SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import {Dimensions} from 'react-native';
+import { Dimensions } from 'react-native';
 import IndividualXO from './IndividualXO';
 import { useStore } from '../components/GlobalVariables';
 const windowWidth = Dimensions.get('window').width;
@@ -9,141 +9,140 @@ const windowWidth = Dimensions.get('window').width;
 const GameScreen = () => {
   var active_player = useStore(state => state.active_player);
   var setActive_player = useStore(state => state.setActive_player);
- //  const [active_player, setActive_player] = useState('X')
- /*    const [markers, setMarkers] = useState([
-      null, null, null,
-      null, null, null,
-      null, null, null
-    ]) */
+  //  const [active_player, setActive_player] = useState('X')
+  /*    const [markers, setMarkers] = useState([
+       null, null, null,
+       null, null, null,
+       null, null, null
+     ]) */
 
-    var markers=useStore(state => state.markers);
-    var setMarkers=useStore(state => state.setMarkers);
-    var setWholeMarkers=useStore(state => state.setWholeMarkers);
+  var markers = useStore(state => state.markers);
+  var setMarkers = useStore(state => state.setMarkers);
+  var setWholeMarkers = useStore(state => state.setWholeMarkers);
+  var boxStatus = useStore(state => state.boxStatus);
+  var setBoxStatus=useStore(state => state.setBoxStatus);
+  const [gameStatus,setGameStatus]=useState(false)
+  var setWholeBoxStatus=useStore(state => state.setWholeBoxStatus);
 
-    // Add marker on clicked position
-    const markPosition = (position) => {
-      if(!markers[position][0]){
-        let temp = [...markers]
-        temp[position][0] = active_player
-        setWholeMarkers(temp)
-        if(active_player === 'X'){  //transfer chances to next player
-          setActive_player('O')
-        }else{
-          setActive_player('X')
-        }
+  // Clear entire board
+  const resetMarkers = () => {
+    temp =
+      [[null, null, null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null, null, null],]
+
+    setWholeMarkers(temp)
+    setActive_player('X')
+    temp=[null,null,null,null,null,null,null,null,null]
+    setWholeBoxStatus(temp)
+    setGameStatus(false)
+  }
+
+  //Function to calculate winner
+  const calculateWinner = (squares) => {
+    const lines = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6]
+    ];
+    for (let i = 0; i < lines.length; i++) {
+      const [a, b, c] = lines[i];
+      if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c] && !gameStatus ) {
+        setGameStatus(true)
+        return squares[a];
       }
     }
+    return null;
+  }
 
-    // Clear entire board
-    const resetMarkers = () => {
-      temp=
-    [    [null, null, null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null, null, null],]
-      
-      setWholeMarkers(temp)
-      setActive_player('X')
+
+  //UseEffect to call each time any player plays 
+  useEffect(() => {
+    console.log("I am called otoooo")
+    const winner = calculateWinner(boxStatus);
+    if (winner === 'XWon') {
+      alert("Player X Won!")
+      resetMarkers()
+    } else if (winner === 'OWon') {
+      alert("Player O Won!")
+      resetMarkers()
     }
-
-    //Function to calculate winner
-    const calculateWinner = (squares) => {
-      const lines = [
-        [0,1,2],
-        [3,4,5],
-        [6,7,8],
-        [0,3,6],
-        [1,4,7],
-        [2,5,8],
-        [0,4,8],
-        [2,4,6]
-      ];
-      for(let i = 0; i < lines.length; i++){
-        const [a,b,c] = lines[i];
-        if(squares[a] && squares[a] === squares[b] && squares[a] === squares[c]){
-          return squares[a];
-        }
-      }
-      return null;
-    }
-    
-
-    //UseEffect to call each time any player plays 
-    useEffect(() => {
-      const winner = calculateWinner(markers);
-      if(winner === 'X'){
-        alert("Player X Won!")
-        resetMarkers()
-      }else if(winner === 'O'){
-        alert("Player O Won!")
-        resetMarkers()
-      }
-    }, [markers])
+  }, [markers,boxStatus])
 
 
   return (
     <SafeAreaView style={styles.all}>
-        <View style={[styles.playerInfo,{backgroundColor:active_player==='X'?'#007FF4':'#F40075'}]}>
-            <Text style={styles.playerTxt}>
-                Player X's turn            
-            </Text>
-        </View>    
-        <View style={styles.mainContainer}> 
-        
+      <View style={[styles.playerInfo, { backgroundColor: active_player === 'X' ? '#007FF4' : '#F40075' }]}>
+        <Text style={styles.playerTxt}>
+          Player {active_player}'s turn
+        </Text>
+      </View>
+      <View style={styles.mainContainer}>
+
         {/* Top Left Cell */}
-        <View style={[styles.cell,styles.cellD,styles.cellR]}>
-        {IndividualXO()}
-        </View>
+        {
+          <View style={[styles.cell, styles.cellD, styles.cellR]}>
+            {IndividualXO(0)}
+          </View>
+        }
+
+
 
         {/* Top Mid Cell */}
-        <View style={[styles.cell,styles.cellD,styles.cellR]}>
-        <IndividualXO />
+        <View style={[styles.cell, styles.cellD, styles.cellR]}>
+          {IndividualXO(1)}
         </View>
 
         {/* Top Right Cell */}
-        <View style={[styles.cell,styles.cellD]}>
-        <IndividualXO />
+        <View style={[styles.cell, styles.cellD]}>
+          {IndividualXO(2)}
         </View>
 
         {/* Mid Left Cell */}
-        <View style={[styles.cell,styles.cellD,styles.cellR]}>
-        <IndividualXO />
+        <View style={[styles.cell, styles.cellD, styles.cellR]}>
+          {IndividualXO(3)}
         </View>
 
         {/* Mid Mid Cell */}
-        <View style={[styles.cell,styles.cellD,styles.cellR]}>
-        <IndividualXO />
+        <View style={[styles.cell, styles.cellD, styles.cellR]}>
+          {IndividualXO(4)}
         </View>
 
         {/* Mid Right Cell */}
-        <View style={[styles.cell,styles.cellD]}>
-        <IndividualXO />
+        <View style={[styles.cell, styles.cellD]}>
+          {IndividualXO(5)}
         </View>
 
         {/* Bottom Left Cell */}
-        <View style={[styles.cell,styles.cellR]}>
-        <IndividualXO />
+        <View style={[styles.cell, styles.cellR]}>
+          {IndividualXO(6)}
         </View>
 
         {/* Bottom Mid Cell */}
-        <View style={[styles.cell,styles.cellR]}>
-        <IndividualXO />
+        <View style={[styles.cell, styles.cellR]}>
+          {IndividualXO(7)}
         </View>
 
         {/* Bottom Right Cell */}
         <View style={[styles.cell]}>
-        <IndividualXO />
+          {IndividualXO(8)}
         </View>
-        </View>
+      </View>
 
-        <TouchableOpacity style={styles.cancleBTN} onPress={resetMarkers}>
-          <Image source={require('../assets/img/replay.png')} style={styles.cancelIcon}/>
-        </TouchableOpacity>
+      <TouchableOpacity style={styles.cancleBTN} onPress={resetMarkers}>
+        <Image source={require('../assets/img/replay.png')} style={styles.cancelIcon} />
+      </TouchableOpacity>
 
     </SafeAreaView>
   )
@@ -151,18 +150,19 @@ const GameScreen = () => {
 
 export default GameScreen
 
-const styles = StyleSheet.create({all:{
-    flex:1,
-    backgroundColor:'#fff'
-},
-playerInfo: {
+const styles = StyleSheet.create({
+  all: {
+    flex: 1,
+    backgroundColor: '#fff'
+  },
+  playerInfo: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: 20,
     paddingVertical: 20,
     marginTop: 30,
-    borderRadius:40
+    borderRadius: 40
   },
   playerTxt: {
     fontSize: 20,
@@ -176,16 +176,16 @@ playerInfo: {
     flexWrap: 'wrap',
     marginTop: 60
   },
-  cell:{  width: windowWidth / 3.2,
-  height: windowWidth / 3.2,
-  flexDirection: 'row',
-  justifyContent: 'center',
-  alignItems: 'center',}
+  cell: {
+    width: windowWidth / 3.2,
+    height: windowWidth / 3.2,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
   ,
-  cellR:{borderRightWidth:6},
-  cellL:{borderLeftWidth:6},
-  cellD:{borderBottomWidth:6},
-  cellU:{borderTopWidth:6},
+  cellR: { borderRightWidth: 6 },
+  cellD: { borderBottomWidth: 6 },
 
   /* cell_top_left: {
     width: windowWidth / 3.2,
@@ -262,7 +262,7 @@ playerInfo: {
     borderLeftWidth: 6,
     borderTopWidth: 6,
   } */
-  
+
   icon: {
     height: 62,
     width: 62
