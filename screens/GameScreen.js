@@ -1,10 +1,15 @@
 import { Image, TouchableOpacity, SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import {Dimensions} from 'react-native';
+import IndividualXO from './IndividualXO';
+import { useStore } from '../components/GlobalVariables';
 const windowWidth = Dimensions.get('window').width;
 
+
 const GameScreen = () => {
-    const [active_player, setActive_player] = useState('X')
+  var active_player = useStore(state => state.active_player);
+  var setActive_player = useStore(state => state.setActive_player);
+ //  const [active_player, setActive_player] = useState('X')
     const [markers, setMarkers] = useState([
       null, null, null,
       null, null, null,
@@ -80,10 +85,9 @@ const GameScreen = () => {
         <View style={styles.mainContainer}> 
         
         {/* Top Left Cell */}
-        <TouchableOpacity style={[styles.cell,styles.cellR,styles.cellD]} onPress={()=>markPosition(0)}>
-          {markers[0] === 'X' && <Image source={require('../assets/img/cross.png')} style={styles.icon} />}
-          {markers[0] === 'O' && <Image source={require('../assets/img/zero.png')} style={styles.icon} />}
-        </TouchableOpacity>
+        <View style={[styles.cell,styles.cellD,styles.cellR]}>
+        <IndividualXO/>
+        </View>
 
         {/* Top Mid Cell */}
         <TouchableOpacity style={[styles.cell,styles.cellD]} onPress={()=>markPosition(1)}>
