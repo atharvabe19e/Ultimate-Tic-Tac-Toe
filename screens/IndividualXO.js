@@ -108,8 +108,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexWrap: 'wrap',
   },
-  cell:{  width: windowWidth / (11),
-  height: windowWidth / (11),
+  cell:{  width: windowWidth / (11.5),
+  height: windowWidth / (11.5),
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',}
