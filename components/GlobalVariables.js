@@ -15,4 +15,8 @@ export const useStore = create(set => ({
     [null, null, null, null, null, null, null, null, null],
     [null, null, null, null, null, null, null, null, null],
   ],
+  setMarkers: (i,j) => set(state => ({markers:[i][j] })),
+  setWholeMarkers:k => set(state => ({markers:[...k]})),
+  active_block: null,
+  setActive_block: k => set(state => ({active_player: k}))
 }));

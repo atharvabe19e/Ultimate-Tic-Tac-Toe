@@ -10,18 +10,22 @@ const GameScreen = () => {
   var active_player = useStore(state => state.active_player);
   var setActive_player = useStore(state => state.setActive_player);
  //  const [active_player, setActive_player] = useState('X')
-    const [markers, setMarkers] = useState([
+ /*    const [markers, setMarkers] = useState([
       null, null, null,
       null, null, null,
       null, null, null
-    ])
+    ]) */
+
+    var markers=useStore(state => state.markers);
+    var setMarkers=useStore(state => state.setMarkers);
+    var setWholeMarkers=useStore(state => state.setWholeMarkers);
 
     // Add marker on clicked position
     const markPosition = (position) => {
-      if(!markers[position]){
+      if(!markers[position][0]){
         let temp = [...markers]
-        temp[position] = active_player
-        setMarkers(temp)
+        temp[position][0] = active_player
+        setWholeMarkers(temp)
         if(active_player === 'X'){  //transfer chances to next player
           setActive_player('O')
         }else{
@@ -86,55 +90,55 @@ const GameScreen = () => {
         
         {/* Top Left Cell */}
         <View style={[styles.cell,styles.cellD,styles.cellR]}>
-        <IndividualXO/>
+        <IndividualXO />
         </View>
 
         {/* Top Mid Cell */}
         <TouchableOpacity style={[styles.cell,styles.cellD]} onPress={()=>markPosition(1)}>
-          {markers[1] === 'X' && <Image source={require('../assets/img/cross.png')} style={styles.icon} />}
-          {markers[1] === 'O' && <Image source={require('../assets/img/zero.png')} style={styles.icon} />}
+          {markers[1][0] === 'X' && <Image source={require('../assets/img/cross.png')} style={styles.icon} />}
+          {markers[1][0] === 'O' && <Image source={require('../assets/img/zero.png')} style={styles.icon} />}
         </TouchableOpacity>
 
         {/* Top Right Cell */}
         <TouchableOpacity style={[styles.cell,styles.cellD,styles.cellL]} onPress={()=>markPosition(2)}>
-          {markers[2] === 'X' && <Image source={require('../assets/img/cross.png')} style={styles.icon} />}
-          {markers[2] === 'O' && <Image source={require('../assets/img/zero.png')} style={styles.icon} />}
+          {markers[2][0] === 'X' && <Image source={require('../assets/img/cross.png')} style={styles.icon} />}
+          {markers[2][0] === 'O' && <Image source={require('../assets/img/zero.png')} style={styles.icon} />}
         </TouchableOpacity>
 
         {/* Mid Left Cell */}
         <TouchableOpacity style={[styles.cell,styles.cellR]} onPress={()=>markPosition(3)}>
-          {markers[3] === 'X' && <Image source={require('../assets/img/cross.png')} style={styles.icon} />}
-          {markers[3] === 'O' && <Image source={require('../assets/img/zero.png')} style={styles.icon} />}
+          {markers[3][0] === 'X' && <Image source={require('../assets/img/cross.png')} style={styles.icon} />}
+          {markers[3][0] === 'O' && <Image source={require('../assets/img/zero.png')} style={styles.icon} />}
         </TouchableOpacity>
 
         {/* Mid Mid Cell */}
         <TouchableOpacity style={styles.cell} onPress={()=>markPosition(4)}>
-          {markers[4] === 'X' && <Image source={require('../assets/img/cross.png')} style={styles.icon} />}
-          {markers[4] === 'O' && <Image source={require('../assets/img/zero.png')} style={styles.icon} />}
+          {markers[4][0] === 'X' && <Image source={require('../assets/img/cross.png')} style={styles.icon} />}
+          {markers[4][0] === 'O' && <Image source={require('../assets/img/zero.png')} style={styles.icon} />}
         </TouchableOpacity>
 
         {/* Mid Right Cell */}
         <TouchableOpacity style={[styles.cell,styles.cellL]} onPress={()=>markPosition(5)}>
-          {markers[5] === 'X' && <Image source={require('../assets/img/cross.png')} style={styles.icon} />}
-          {markers[5] === 'O' && <Image source={require('../assets/img/zero.png')} style={styles.icon} />}
+          {markers[5][0] === 'X' && <Image source={require('../assets/img/cross.png')} style={styles.icon} />}
+          {markers[5][0] === 'O' && <Image source={require('../assets/img/zero.png')} style={styles.icon} />}
         </TouchableOpacity>
 
         {/* Bottom Left Cell */}
         <TouchableOpacity style={[styles.cell,styles.cellR,styles.cellU]} onPress={()=>markPosition(6)}>
-          {markers[6] === 'X' && <Image source={require('../assets/img/cross.png')} style={styles.icon} />}
-          {markers[6] === 'O' && <Image source={require('../assets/img/zero.png')} style={styles.icon} />}
+          {markers[6][0] === 'X' && <Image source={require('../assets/img/cross.png')} style={styles.icon} />}
+          {markers[6][0] === 'O' && <Image source={require('../assets/img/zero.png')} style={styles.icon} />}
         </TouchableOpacity>
 
         {/* Bottom Mid Cell */}
         <TouchableOpacity style={[styles.cell,styles.cellU]} onPress={()=>markPosition(7)}>
-          {markers[7] === 'X' && <Image source={require('../assets/img/cross.png')} style={styles.icon} />}
-          {markers[7] === 'O' && <Image source={require('../assets/img/zero.png')} style={styles.icon} />}
+          {markers[7][0] === 'X' && <Image source={require('../assets/img/cross.png')} style={styles.icon} />}
+          {markers[7][0] === 'O' && <Image source={require('../assets/img/zero.png')} style={styles.icon} />}
         </TouchableOpacity>
 
         {/* Bottom Right Cell */}
         <TouchableOpacity style={[styles.cell,styles.cellL,styles.cellU]} onPress={()=>markPosition(8)}>
-          {markers[8] === 'X' && <Image source={require('../assets/img/cross.png')} style={styles.icon} />}
-          {markers[8] === 'O' && <Image source={require('../assets/img/zero.png')} style={styles.icon} />}
+          {markers[8][0] === 'X' && <Image source={require('../assets/img/cross.png')} style={styles.icon} />}
+          {markers[8][0] === 'O' && <Image source={require('../assets/img/zero.png')} style={styles.icon} />}
         </TouchableOpacity>
         </View>
 
