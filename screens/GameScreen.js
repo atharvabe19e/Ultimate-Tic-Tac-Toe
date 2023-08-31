@@ -1,4 +1,4 @@
-import { Image, TouchableOpacity, SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { Image, TouchableOpacity, SafeAreaView, StyleSheet, Text, View,Alert } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Dimensions } from 'react-native';
 import IndividualXO from './IndividualXO';
@@ -72,11 +72,19 @@ const GameScreen = () => {
     console.log("I am called otoooo")
     const winner = calculateWinner(boxStatus);
     if (winner === 'XWon') {
-      alert("Player X Won!")
-      resetMarkers()
+      Alert.alert('GAME OVER', 'Player X Won', [
+        {
+          text: 'New Game',
+          onPress: () =>resetMarkers(),
+          style: 'cancel',
+        }])
     } else if (winner === 'OWon') {
-      alert("Player O Won!")
-      resetMarkers()
+      Alert.alert('GAME OVER', 'Player O Won the Game', [
+        {
+          text: 'New Game',
+          onPress: () =>resetMarkers(),
+          style: 'cancel',
+        }])
     }
   }, [markers,boxStatus])
 

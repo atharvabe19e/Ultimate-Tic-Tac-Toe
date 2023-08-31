@@ -66,19 +66,17 @@ const IndividualXO = (currentBox) => {
 
 
     //UseEffect to call each time any player plays 
-    useEffect(() => {useEffectFunction()
+    useEffect(() => {  const winner = calculateWinner(markers);
+        if (winner === 'X') {
+             console.log("Player X Won !box"+currentBox)
+              console.log(boxStatus)
+        } else if (winner === 'O') {
+             console.log("Player O Won !box"+currentBox)
+        }
     }, [markers,boxStatus])
 
     const useEffectFunction=async()=>{
-        const winner = calculateWinner(markers);
-        if (winner === 'X') {
-            await console.log("Player X Won !box"+currentBox)
-          //  await resetMarkers()
-            await  console.log(boxStatus)
-        } else if (winner === 'O') {
-            await console.log("Player O Won !box"+currentBox)
-         //   await resetMarkers()
-        }
+      
     }
 
 
