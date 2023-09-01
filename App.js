@@ -13,8 +13,8 @@ const App = () => {
     <SafeAreaView style={styles.all}>
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}} >
-        <Stack.Screen name='Game' component={GameScreen}  />
       <Stack.Screen name='Home' component={StartScreen}  />
+        <Stack.Screen name='Game' component={GameScreen}  />
       </Stack.Navigator>
     </NavigationContainer>
     </SafeAreaView>
