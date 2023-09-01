@@ -6,7 +6,7 @@ const windowWidth = Dimensions.get('window').width;
 import { useStore } from '../components/GlobalVariables';
 
 
-const IndividualXO = (currentBox) => {
+const IndividualXO = (currentBox,active_Status) => {
     var boxNo = currentBox
 
     var active_player = useStore(state => state.active_player);
@@ -17,6 +17,20 @@ const IndividualXO = (currentBox) => {
     var boxStatus=useStore(state => state.boxStatus);
     var setBoxStatus=useStore(state => state.setBoxStatus);
 
+
+    var setActive_block=useStore(state => state.setActive_block);
+    var reset_Active_Block=useStore(state => state.reset_Active_Block);
+    var active_Status1=false;
+    
+    var super_reset_Active_Block=useStore(state => state.super_reset_Active_Block);
+
+    if(active_Status===1)
+    {
+        active_Status1=false
+    }
+    else{
+        active_Status1=true
+    }
 
     // Add marker on clicked position
     const markPosition = (position) => {
@@ -29,6 +43,17 @@ const IndividualXO = (currentBox) => {
             } else {
                 setActive_player('X')
             }
+
+             reset_Active_Block()
+            console.log(boxStatus[position]+"                chceck")
+            if(boxStatus[position]==null){
+                console.log("sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
+            setActive_block(position,1)} 
+            else{super_reset_Active_Block()}
+
+      
+            console.log("posiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiition"+position)
+           
         }
     }
 
@@ -87,7 +112,7 @@ const IndividualXO = (currentBox) => {
             {boxStatus[boxNo] === null ?(
                 <>
             {/* Top Left Cell */}
-            <TouchableOpacity style={[styles.cell, styles.cellR, styles.cellD]} onPress={() => markPosition(0)}>
+            <TouchableOpacity disabled={active_Status1} style={[styles.cell, styles.cellR, styles.cellD]} onPress={() => markPosition(0)}>
 
                 {markers[boxNo][0] === 'X' && <Image source={require('../assets/img/cross.png')} style={styles.icon} />}
                 {markers[boxNo][0] === 'O' && <Image source={require('../assets/img/zero.png')} style={styles.icon} />}
@@ -95,7 +120,7 @@ const IndividualXO = (currentBox) => {
             </TouchableOpacity>
 
             {/* Top Mid Cell */}
-            <TouchableOpacity style={[styles.cell, styles.cellD]} onPress={() => markPosition(1)}>
+            <TouchableOpacity disabled={active_Status1} style={[styles.cell, styles.cellD]} onPress={() => markPosition(1)}>
                 {markers[boxNo][1] === 'X' && <Image source={require('../assets/img/cross.png')} style={styles.icon} />}
                 {markers[boxNo][1] === 'O' && <Image source={require('../assets/img/zero.png')} style={styles.icon} />}
             </TouchableOpacity>
@@ -103,44 +128,44 @@ const IndividualXO = (currentBox) => {
 
 
             {/* Top Right Cell */}
-            <TouchableOpacity style={[styles.cell, styles.cellD, styles.cellL]} onPress={() => markPosition(2)}>
+            <TouchableOpacity disabled={active_Status1} style={[styles.cell, styles.cellD, styles.cellL]} onPress={() => markPosition(2)}>
                 {markers[boxNo][2] === 'X' && <Image source={require('../assets/img/cross.png')} style={styles.icon} />}
                 {markers[boxNo][2] === 'O' && <Image source={require('../assets/img/zero.png')} style={styles.icon} />}
                 
             </TouchableOpacity>
 
             {/* Mid Left Cell */}
-            <TouchableOpacity style={[styles.cell, styles.cellR]} onPress={() => markPosition(3)}>
+            <TouchableOpacity disabled={active_Status1} style={[styles.cell, styles.cellR]} onPress={() => markPosition(3)}>
                 {markers[boxNo][3] === 'X' && <Image source={require('../assets/img/cross.png')} style={styles.icon} />}
                 {markers[boxNo][3] === 'O' && <Image source={require('../assets/img/zero.png')} style={styles.icon} />}
             </TouchableOpacity>
 
             {/* Mid Mid Cell */}
-            <TouchableOpacity style={styles.cell} onPress={() => markPosition(4)}>
+            <TouchableOpacity disabled={active_Status1} style={styles.cell} onPress={() => markPosition(4)}>
                 {markers[boxNo][4] === 'X' && <Image source={require('../assets/img/cross.png')} style={styles.icon} />}
                 {markers[boxNo][4] === 'O' && <Image source={require('../assets/img/zero.png')} style={styles.icon} />}
             </TouchableOpacity>
 
             {/* Mid Right Cell */}
-            <TouchableOpacity style={[styles.cell, styles.cellL]} onPress={() => markPosition(5)}>
+            <TouchableOpacity disabled={active_Status1} style={[styles.cell, styles.cellL]} onPress={() => markPosition(5)}>
                 {markers[boxNo][5] === 'X' && <Image source={require('../assets/img/cross.png')} style={styles.icon} />}
                 {markers[boxNo][5] === 'O' && <Image source={require('../assets/img/zero.png')} style={styles.icon} />}
             </TouchableOpacity>
 
             {/* Bottom Left Cell */}
-            <TouchableOpacity style={[styles.cell, styles.cellR, styles.cellU]} onPress={() => markPosition(6)}>
+            <TouchableOpacity disabled={active_Status1} style={[styles.cell, styles.cellR, styles.cellU]} onPress={() => markPosition(6)}>
                 {markers[boxNo][6] === 'X' && <Image source={require('../assets/img/cross.png')} style={styles.icon} />}
                 {markers[boxNo][6] === 'O' && <Image source={require('../assets/img/zero.png')} style={styles.icon} />}
             </TouchableOpacity>
 
             {/* Bottom Mid Cell */}
-            <TouchableOpacity style={[styles.cell, styles.cellU]} onPress={() => markPosition(7)}>
+            <TouchableOpacity disabled={active_Status1} style={[styles.cell, styles.cellU]} onPress={() => markPosition(7)}>
                 {markers[boxNo][7] === 'X' && <Image source={require('../assets/img/cross.png')} style={styles.icon} />}
                 {markers[boxNo][7] === 'O' && <Image source={require('../assets/img/zero.png')} style={styles.icon} />}
             </TouchableOpacity>
 
             {/* Bottom Right Cell */}
-            <TouchableOpacity style={[styles.cell, styles.cellL, styles.cellU]} onPress={() => markPosition(8)}>
+            <TouchableOpacity disabled={active_Status1} style={[styles.cell, styles.cellL, styles.cellU]} onPress={() => markPosition(8)}>
                 {markers[boxNo][8] === 'X' && <Image source={require('../assets/img/cross.png')} style={styles.icon} />}
                 {markers[boxNo][8] === 'O' && <Image source={require('../assets/img/zero.png')} style={styles.icon} />}
             </TouchableOpacity>

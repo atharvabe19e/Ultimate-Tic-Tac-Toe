@@ -29,8 +29,15 @@ export const useStore = create(set => ({
   ,setWholeMarkers:k => set(state => ({markers:[...k]})),
 
 
-  active_block: null,
-  setActive_block: k => set(state => ({active_player: k})),
+  active_block: [1,1,1,1,1,1,1,1,1],
+  setActive_block: (index, newItem) =>
+  set((state) => {
+    const updatedItems = [...state.active_block];
+    updatedItems[index] = newItem;
+    return { active_block: updatedItems };
+  }),
+  reset_Active_Block:() => set(state => ({active_block:[0,0,0,0,0,0,0,0,0,] })),
+  super_reset_Active_Block:() => set(state => ({active_block:[1,1,1,1,1,1,1,1,1] })),
 
 
   boxStatus:[null,null,null,null,null,null,null,null,null],
@@ -41,4 +48,6 @@ export const useStore = create(set => ({
     return { boxStatus: updatedItems };
   }),
   setWholeBoxStatus:k => set(state => ({boxStatus:[...k]}))
+
+
 }));

@@ -23,6 +23,10 @@ const GameScreen = () => {
   var setBoxStatus=useStore(state => state.setBoxStatus);
   const [gameStatus,setGameStatus]=useState(false)
   var setWholeBoxStatus=useStore(state => state.setWholeBoxStatus);
+  var super_reset_Active_Block=useStore(state => state.super_reset_Active_Block);
+
+
+  var active_block=useStore(state => state.active_block);
 
   // Clear entire board
   const resetMarkers = () => {
@@ -42,6 +46,7 @@ const GameScreen = () => {
     temp=[null,null,null,null,null,null,null,null,null]
     setWholeBoxStatus(temp)
     setGameStatus(false)
+    super_reset_Active_Block()
   }
 
   //Function to calculate winner
@@ -89,6 +94,10 @@ const GameScreen = () => {
   }, [markers,boxStatus])
 
 
+
+  //trying to set active block
+  
+
   return (
     <SafeAreaView style={styles.all}>
       <View style={[styles.playerInfo, { backgroundColor: active_player === 'X' ? '#007FF4' : '#F40075' }]}>
@@ -101,7 +110,7 @@ const GameScreen = () => {
         {/* Top Left Cell */}
         {
           <View style={[styles.cell, styles.cellD, styles.cellR]}>
-            {IndividualXO(0)}
+            {IndividualXO(0,active_block[0])}
           </View>
         }
 
@@ -109,42 +118,42 @@ const GameScreen = () => {
 
         {/* Top Mid Cell */}
         <View style={[styles.cell, styles.cellD, styles.cellR]}>
-          {IndividualXO(1)}
+          {IndividualXO(1,active_block[1],active_block)}
         </View>
 
         {/* Top Right Cell */}
         <View style={[styles.cell, styles.cellD]}>
-          {IndividualXO(2)}
+          {IndividualXO(2,active_block[2],active_block)}
         </View>
 
         {/* Mid Left Cell */}
         <View style={[styles.cell, styles.cellD, styles.cellR]}>
-          {IndividualXO(3)}
+          {IndividualXO(3,active_block[3],active_block)}
         </View>
 
         {/* Mid Mid Cell */}
         <View style={[styles.cell, styles.cellD, styles.cellR]}>
-          {IndividualXO(4)}
+          {IndividualXO(4,active_block[4],active_block)}
         </View>
 
         {/* Mid Right Cell */}
         <View style={[styles.cell, styles.cellD]}>
-          {IndividualXO(5)}
+          {IndividualXO(5,active_block[5],active_block)}
         </View>
 
         {/* Bottom Left Cell */}
         <View style={[styles.cell, styles.cellR]}>
-          {IndividualXO(6)}
+          {IndividualXO(6,active_block[6],active_block)}
         </View>
 
         {/* Bottom Mid Cell */}
         <View style={[styles.cell, styles.cellR]}>
-          {IndividualXO(7)}
+          {IndividualXO(7,active_block[7],active_block)}
         </View>
 
         {/* Bottom Right Cell */}
         <View style={[styles.cell]}>
-          {IndividualXO(8)}
+          {IndividualXO(8,active_block[8],active_block)}
         </View>
       </View>
 
