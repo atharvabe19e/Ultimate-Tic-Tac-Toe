@@ -25,7 +25,7 @@ const GameScreen = () => {
   var setWholeBoxStatus=useStore(state => state.setWholeBoxStatus);
   var super_reset_Active_Block=useStore(state => state.super_reset_Active_Block);
 
-
+  var borderBlock=[styles.cellR, styles.cellD]
   var active_block=useStore(state => state.active_block);
 
   // Clear entire board
@@ -95,8 +95,10 @@ const GameScreen = () => {
 
 
 
-  //trying to set active block
-  
+  //
+  const allBoxGreen=()=>{
+   
+}
 
   return (
     <SafeAreaView style={styles.all}>
@@ -110,7 +112,7 @@ const GameScreen = () => {
         {/* Top Left Cell */}
         {
           <View style={[styles.cell, styles.cellD, styles.cellR]}>
-            {IndividualXO(0,active_block[0])}
+            {IndividualXO(0,active_block[0],active_block)}
           </View>
         }
 
@@ -142,17 +144,17 @@ const GameScreen = () => {
         </View>
 
         {/* Bottom Left Cell */}
-        <View style={[styles.cell, styles.cellR]}>
+        <View style={[styles.cell, styles.cellR,styles.cellD,{borderBottomColor:'#fff'}]}>
           {IndividualXO(6,active_block[6],active_block)}
         </View>
 
         {/* Bottom Mid Cell */}
-        <View style={[styles.cell, styles.cellR]}>
+        <View style={[styles.cell, styles.cellR,styles.cellD,{borderBottomColor:'#fff'}]}>
           {IndividualXO(7,active_block[7],active_block)}
         </View>
 
         {/* Bottom Right Cell */}
-        <View style={[styles.cell]}>
+        <View style={[styles.cell,styles.cellD,{borderBottomColor:'#fff'}]}>
           {IndividualXO(8,active_block[8],active_block)}
         </View>
       </View>
