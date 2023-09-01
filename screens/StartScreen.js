@@ -1,9 +1,40 @@
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Modal } from 'react-native'
+import React, { useState } from 'react'
 import { Dimensions } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
 
+
+
+const RulesModal=(visibles)=>{
+  return(
+    <>
+    <Modal
+      visible={visibles}
+      animationType="slide"
+      transparent={false}
+      onRequestClose={() => {
+        console.log("Modal has been closed");
+      }}
+      >
+      <View style={styles.modalView}>
+        <Text>Hello, this is working</Text>
+      </View>
+    </Modal>
+  </>
+  )
+}
+
+
+
 const StartScreen = (props) => {
+  const [visibles,changeVisivle]=useState(false)
+
+  const switchVisible=()=>{
+    if visibles==t
+  }
+  
+
+
   return (
     <SafeAreaView style={styles.all}>
       <View style={styles.mainTextBox}>
@@ -15,12 +46,13 @@ const StartScreen = (props) => {
             Start!!!
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.startBoxButton}>
+        <TouchableOpacity style={styles.startBoxButton} onPress={()=>{RulesModal()}}>
           <Text style={styles.startText}>
-            Rules
+            How To Play
           </Text>
         </TouchableOpacity>
       </View>
+      <RulesModal visibles={visibles}/>
     </SafeAreaView>
   )
 }
@@ -35,7 +67,7 @@ const styles = StyleSheet.create({
   mainTextBox: {
     flexDirection: 'row',
     justifyContent: 'center',
-    height: '50%'
+    height: '60%'
   }
   , mainText: {
     textAlignVertical: 'center',
@@ -62,5 +94,24 @@ const styles = StyleSheet.create({
     fontSize: 35,
     color: 'black',
     fontWeight:'400'
-  }
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: '#DFF1FF',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    borderWidth:10,
+    marginBottom:5,
+    paddingTop:15,
+    paddingBottom:10,
+    flex:1,
+    justifyContent:'center',
+    
+  },
 })
