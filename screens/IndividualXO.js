@@ -48,12 +48,6 @@ const IndividualXO = (currentBox, active_block) => {
         active_Status1 = true
     }
 
-
-
-
-
-
-
     // Add marker on clicked position
     const markPosition = (position) => {
         if (!markers[boxNo][position]) {
@@ -67,20 +61,15 @@ const IndividualXO = (currentBox, active_block) => {
             }
 
             reset_Active_Block()
-            console.log(boxStatus[position] + "                chceck")
             if (boxStatus[position] == null) {
-                console.log("sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
                 setActive_block(position, 1)
             }
             else { super_reset_Active_Block() }
 
 
-            console.log("posiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiition" + position)
 
         }
     }
-
-
 
     //Function to calculate winner
     const calculateWinner = (squares) => {
@@ -113,13 +102,7 @@ const IndividualXO = (currentBox, active_block) => {
 
     //UseEffect to call each time any player plays 
     useEffect(() => {
-        const winner = calculateWinner(markers);
-        if (winner === 'X') {
-            console.log("Player X Won !box" + currentBox)
-            console.log(boxStatus)
-        } else if (winner === 'O') {
-            console.log("Player O Won !box" + currentBox)
-        }
+       calculateWinner(markers);
     }, [markers, boxStatus])
 
 
@@ -219,9 +202,7 @@ const styles = StyleSheet.create({
     }
     ,
     cellR: { borderRightWidth: 2 },
-    cellL: { borderLeftWidth: 2 },
     cellD: { borderBottomWidth: 2 },
-    cellU: { borderTopWidth: 2 },
     icon: {
         height: 30,
         width: 30

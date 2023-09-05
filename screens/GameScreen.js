@@ -7,6 +7,7 @@ const windowWidth = Dimensions.get('window').width;
 
 
 const GameScreen = () => {
+  
   var active_player = useStore(state => state.active_player);
   var setActive_player = useStore(state => state.setActive_player);
   var markers = useStore(state => state.markers);
@@ -63,7 +64,6 @@ const GameScreen = () => {
 
   //UseEffect to call each time any player plays 
   useEffect(() => {
-    console.log("I am called otoooo")
     const winner = calculateWinner(boxStatus);
     if (winner === 'XWon') {
       Alert.alert('GAME OVER', 'Player X Won', [
