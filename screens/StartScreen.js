@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Modal, ScrollView } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState } from 'react' 
 import { Dimensions } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
 
